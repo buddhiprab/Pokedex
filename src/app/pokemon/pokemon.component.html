@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8">
-      <div class="ca_j10">
+    <div class="col-sm-12">
+      <div class="ca_j10 seccol">
         <div class="ca_j9">
           <div class="text-center ca_j7 pcolr">
             <span><img class="ca_j8" src="assets/images/spr/{{pokemon.id}}MS.png"></span><span>{{pokemon.name}}</span>
@@ -14,56 +14,55 @@
             </div>
             <div class="ca_j14">
               <div class="ca_j15">Type</div>
-              <div class="ca_j12">
+              <div class="ca_j12" *ngFor="let type of pokemon.types">
                 <button class="btn pcolr1 ca_j16" type="button">
-                  <span class="badge ca_j11">&#33609;</span>
+                  <span class="badge ca_j11">{{type}}</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="">
-          <img class="ca_i1" src="assets/images/img/{{pokemon.imgN}}">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="">
+              <img class="ca_i1" src="assets/images/img/{{pokemon.imgN}}">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <ul class="ca_j17">
+              <li *ngFor="let baseVal of pokemon.base">
+                <div class="ca_j6 pcolr seccol2">
+                  <div class="ca_j1 ca_j2"><span class="ca_j5">{{baseVal.n}}</span></div>
+                  <div class="ca_j1 ca_j3">
+                    <div class="progress ca_j4 pbcolr seccol2_1">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="baseVal.v + '%'">
+                        <span class="sr-only">{{baseVal.v}}% Complete</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <div class="ca_j6 pcolr">
-            <div class="ca_j1 ca_j2"><span class="ca_j5">Attack</span></div>
-            <div class="ca_j1 ca_j3">
-              <div class="progress ca_j4">
-                <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="pokemon.attack + '%'">
-                  <span class="sr-only">{{pokemon.attack}}% Complete</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ca_j6 pcolr">
-            <div class="ca_j1 ca_j2"><span class="ca_j5">Attack</span></div>
-            <div class="ca_j1 ca_j3">
-              <div class="progress ca_j4">
-                <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="pokemon.attack + '%'">
-                  <span class="sr-only">{{pokemon.attack}}% Complete</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
+        <div>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row ca_j18">
+    <div class="col-md-6">
       <input *ngIf="config.filtering" placeholder="Search by Name"
              [ngTableFiltering]="config.filtering"
              class="form-control"
              (tableChanged)="onChangeTable(config)"/>
     </div>
   </div>
-  <br>
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12 ca_j19">
       <ng-table [config]="config"
                 (tableChanged)="onChangeTable(config)"
                 (cellClicked)="onCellClick($event)"

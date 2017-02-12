@@ -3,11 +3,7 @@ export class Pokemon {
   id: number;
   flatName: string;
   thm: string;
-  attack:number;
-  defense:number;
-  hp:number;
-  spAtk:number;
-  spDef:number;
-  speed:number;
+  base:Array<Object>;
   imgN:string;
+  types:string[];
 }

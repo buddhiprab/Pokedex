@@ -16,9 +16,9 @@ export class PokemonComponent implements OnInit {
   error: any;
   public rows: Array<any> = [];
   public columns: Array<any> = [
-    {title: 'Name', name: 'name', sort: 'asc', filtering: {filterString: '', placeholder: 'Filter by Name'}},
+    {title: 'Name', name: 'name', sort: '', filtering: {filterString: '', placeholder: 'Filter by Name'}},
     {title: 'ID.', name: 'id', sort: '',filtering: {filterString: '', placeholder: 'Filter by ID'}},
-    {title: 'Theme', name: 'thm', sort: ''}
+    {title: 'Theme', name: 'thm', sort: '',className: ['ci-img-header']}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -145,5 +145,9 @@ export class PokemonComponent implements OnInit {
     catch(err) {
       console.dir(err);
     }
+  }
+  public onCellClick(e){
+    console.dir(e);
+    this.pokemon=e.row;
   }
 }
