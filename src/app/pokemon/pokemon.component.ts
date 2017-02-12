@@ -11,14 +11,14 @@ import {PokedexDataService} from './pokedex-data.service';
   styleUrls: ['./pokemon.component.css']
 })
 export class PokemonComponent implements OnInit {
-  // pokemons: Pokemon[];
-  private data: Pokemon[];
+  pokemon: Pokemon=new Pokemon;
+  private pokemons: Pokemon[];
   error: any;
   public rows: Array<any> = [];
   public columns: Array<any> = [
     {title: 'Name', name: 'name', sort: 'asc', filtering: {filterString: '', placeholder: 'Filter by Name'}},
     {title: 'ID.', name: 'id', sort: '',filtering: {filterString: '', placeholder: 'Filter by ID'}},
-    {title: 'Theme.', name: 'thm', sort: ''}
+    {title: 'Theme', name: 'thm', sort: ''}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -42,9 +42,10 @@ export class PokemonComponent implements OnInit {
       .getPokemons()
       .then((pokemons) => {
         console.log(pokemons.length); // 456
-        this.data = pokemons;
+        this.pokemons = pokemons;
         this.length = pokemons.length;
         this.onChangeTable(this.config);
+        this.pokemon=pokemons[0];
       })
       .catch(error => this.error = error);
   }
@@ -53,15 +54,15 @@ export class PokemonComponent implements OnInit {
     this.getPokemons();
   }
 
-  public changePage(page: any, data: Array<any> = this.data): Array<any> {
+  public changePage(page: any, pokemons: Array<any> = this.pokemons): Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
-    let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
-    return data.slice(start, end);
+    let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : pokemons.length;
+    return pokemons.slice(start, end);
   }
 
-  public changeSort(data: any, config: any): any {
+  public changeSort(pokemons: any, config: any): any {
     if (!config.sorting) {
-      return data;
+      return pokemons;
     }
 
     let columns = this.config.sorting.columns || [];
@@ -76,11 +77,11 @@ export class PokemonComponent implements OnInit {
     }
 
     if (!columnName) {
-      return data;
+      return pokemons;
     }
 
     // simple sorting
-    return data.sort((previous: any, current: any) => {
+    return pokemons.sort((previous: any, current: any) => {
       if (previous[columnName] > current[columnName]) {
         return sort === 'desc' ? -1 : 1;
       } else if (previous[columnName] < current[columnName]) {
@@ -90,12 +91,12 @@ export class PokemonComponent implements OnInit {
     });
   }
 
-  public changeFilter(data: any, config: any): any {
-    let filteredData: Array<any> = data;
+  public changeFilter(pokemons: any, config: any): any {
+    let filteredData: Array<any> = pokemons;
     this.columns.forEach((column: any) => {
       if (column.filtering) {
         filteredData = filteredData.filter((item: any) => {
-          return item[column.name].match(column.filtering.filterString.toLowerCase());
+          return item[column.name].toLowerCase().match(column.filtering.filterString.toLowerCase());
         });
       }
     });
@@ -113,7 +114,7 @@ export class PokemonComponent implements OnInit {
     filteredData.forEach((item: any) => {
       let flag = false;
       this.columns.forEach((column: any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
+        if (item[column.name].toString().toLowerCase().match(this.config.filtering.filterString.toLowerCase())) {
           flag = true;
         }
       });
@@ -136,7 +137,7 @@ export class PokemonComponent implements OnInit {
         Object.assign(this.config.sorting, config.sorting);
       }
 
-      let filteredData = this.changeFilter(this.data, this.config);
+      let filteredData = this.changeFilter(this.pokemons, this.config);
       let sortedData = this.changeSort(filteredData, this.config);
       this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
       this.length = sortedData.length;

@@ -23,8 +23,15 @@ export class PokedexDataService {
                 p.name=o.ename;
                 p.id=o.id;
                 p.flatName=o.flatName;
+                p.imgN=(o.id+(o.flatName?o.flatName:o.ename)+'.png');
                 // p.thm=o.id+(o.flatName?o.flatName:o.ename)+'.png';
                 p.thm='<img src="/assets/images/thm/'+(o.id+(o.flatName?o.flatName:o.ename)+'.png')+'" alt="Smiley face" height="42" width="42">';
+                p.attack=o.base.Attack;
+                p.defense=o.base.Defense;
+                p.hp=o.base.HP;
+                p.spAtk=o.base["Sp.Atk"];
+                p.spDef=o.base["Sp.Def"];
+                p.speed=o.base["Speed"];
                 pokemons.push(p);
               });
               return pokemons;

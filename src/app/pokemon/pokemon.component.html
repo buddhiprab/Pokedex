@@ -1,26 +1,86 @@
-<div class="row">
-  <div class="col-md-4">
-    <input *ngIf="config.filtering" placeholder="Search by Name"
-           [ngTableFiltering]="config.filtering"
-           class="form-control"
-           (tableChanged)="onChangeTable(config)"/>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="ca_j10">
+        <div class="ca_j9">
+          <div class="text-center ca_j7 pcolr">
+            <span><img class="ca_j8" src="assets/images/spr/{{pokemon.id}}MS.png"></span><span>{{pokemon.name}}</span>
+          </div>
+          <div class="ca_j13">
+            <div class="ca_j12">
+              <button class="btn pcolr1" type="button">
+                <span class="badge ca_j11">{{pokemon.id}}</span>
+              </button>
+            </div>
+            <div class="ca_j14">
+              <div class="ca_j15">Type</div>
+              <div class="ca_j12">
+                <button class="btn pcolr1 ca_j16" type="button">
+                  <span class="badge ca_j11">&#33609;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <img class="ca_i1" src="assets/images/img/{{pokemon.imgN}}">
+        </div>
+        <div>
+          <div class="ca_j6 pcolr">
+            <div class="ca_j1 ca_j2"><span class="ca_j5">Attack</span></div>
+            <div class="ca_j1 ca_j3">
+              <div class="progress ca_j4">
+                <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="pokemon.attack + '%'">
+                  <span class="sr-only">{{pokemon.attack}}% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ca_j6 pcolr">
+            <div class="ca_j1 ca_j2"><span class="ca_j5">Attack</span></div>
+            <div class="ca_j1 ca_j3">
+              <div class="progress ca_j4">
+                <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="pokemon.attack + '%'">
+                  <span class="sr-only">{{pokemon.attack}}% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<br>
-<ng-table [config]="config"
-          (tableChanged)="onChangeTable(config)"
-          (cellClicked)="onCellClick($event)"
-          [rows]="rows" [columns]="columns">
-</ng-table>
-<pagination *ngIf="config.paging"
-            class="pagination-sm"
-            [(ngModel)]="page"
-            [totalItems]="length"
-            [itemsPerPage]="itemsPerPage"
-            [maxSize]="maxSize"
-            [boundaryLinks]="true"
-            [rotate]="false"
-            (pageChanged)="onChangeTable(config, $event)"
-            (numPages)="numPages = $event">
-</pagination>
-<pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <input *ngIf="config.filtering" placeholder="Search by Name"
+             [ngTableFiltering]="config.filtering"
+             class="form-control"
+             (tableChanged)="onChangeTable(config)"/>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-8">
+      <ng-table [config]="config"
+                (tableChanged)="onChangeTable(config)"
+                (cellClicked)="onCellClick($event)"
+                [rows]="rows" [columns]="columns">
+      </ng-table>
+      <pagination *ngIf="config.paging"
+                  class="pagination-sm"
+                  [(ngModel)]="page"
+                  [totalItems]="length"
+                  [itemsPerPage]="itemsPerPage"
+                  [maxSize]="maxSize"
+                  [boundaryLinks]="true"
+                  [rotate]="false"
+                  (pageChanged)="onChangeTable(config, $event)"
+                  (numPages)="numPages = $event">
+      </pagination>
+      <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
+    </div>
+  </div>
+</div>
