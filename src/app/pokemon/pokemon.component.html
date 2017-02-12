@@ -1,49 +1,26 @@
-<p>
-  pokemon works!
-</p>
-<!--<ul class="heroes">
-    <li *ngFor="let pokemon of pokemons">
-    <span class="hero-element">
-      <span class="badge">{{pokemon.id}}</span> {{pokemon.ename}}
-    </span>
-    </li>
-</ul>-->
-<input *ngIf="config.filtering" placeholder="Filter"
-[ngTableFiltering]="config.filtering"
-(tableChanged)="onChangeTable(config)"/>
-<ng-table [config]="config.sorting"
-(tableChanged)="onChangeTable(config)"
-[rows]="rows" [columns]="columns">
+<div class="row">
+  <div class="col-md-4">
+    <input *ngIf="config.filtering" placeholder="Search by Name"
+           [ngTableFiltering]="config.filtering"
+           class="form-control"
+           (tableChanged)="onChangeTable(config)"/>
+  </div>
+</div>
+<br>
+<ng-table [config]="config"
+          (tableChanged)="onChangeTable(config)"
+          (cellClicked)="onCellClick($event)"
+          [rows]="rows" [columns]="columns">
 </ng-table>
 <pagination *ngIf="config.paging"
-class="pagination-sm"
-[(ngModel)]="page"
-[totalItems]="length"
-[itemsPerPage]="itemsPerPage"
-[maxSize]="maxSize"
-[boundaryLinks]="true"
-[rotate]="false"
-(pageChanged)="onChangeTable(config, $event)"
-(numPages)="numPages = $event">
+            class="pagination-sm"
+            [(ngModel)]="page"
+            [totalItems]="length"
+            [itemsPerPage]="itemsPerPage"
+            [maxSize]="maxSize"
+            [boundaryLinks]="true"
+            [rotate]="false"
+            (pageChanged)="onChangeTable(config, $event)"
+            (numPages)="numPages = $event">
 </pagination>
 <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
-<!--
-<table class="table">
-    <caption>Optional table caption.</caption>
-    <thead>
-    <tr>
-        <th>ename</th>
-        <th>id</th>
-        <th>theme</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let pokemon of pokemons">
-        <td>{{pokemon.ename}}</td>
-        <td>{{pokemon.id}}</td>
-        <td>
-            <img src="assets/images/thm/{{pokemon.id}}{{pokemon.flatName?pokemon.flatName:pokemon.ename}}.png" alt="..." class="img-circle">
-        </td>
-    </tr>
-    </tbody>
-</table>-->

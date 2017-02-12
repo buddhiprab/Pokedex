@@ -1,6 +1,6 @@
 export class InMemoryDataService {
   createDb() {
-    let heroes = [
+    let pokemons = [
             {
                 "base": {
                     "Attack": 49,
@@ -60739,6 +60739,6 @@ export class InMemoryDataService {
             }
         ]
         ;
-    return { heroes };
+    return { pokemons };
   }
 }

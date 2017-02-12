@@ -1,5 +1,6 @@
-export class Pokemon{
-    ename: string;
-    id: number;
-    flatName: string;
+export class Pokemon {
+  name: string;
+  id: number;
+  flatName: string;
+  thm: string;
 }
