@@ -16,7 +16,6 @@ import './rxjs-extensions';
 import {AppComponent} from './app.component';
 import {AppRoutingModule, routedComponents} from './app-routing.module';
 import {PokedexDataService} from './pokemon/pokedex-data.service';
-
 @NgModule({
   imports: [
     BrowserModule,

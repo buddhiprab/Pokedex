@@ -39,6 +39,7 @@ export class PokedexDataService {
           p.typesConcat = o.type.join();
           p.skills = o.skills;
           pokemons.push(p);
+          
         });
         return pokemons;
       })
