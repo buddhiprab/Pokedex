@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-12">
-      <div class="ca_j10 seccol">
-        <div class="ca_j9">
-          <div class="text-center ca_j7 pcolr">
-            <span><img class="ca_j8" src="assets/images/spr/{{pokemon.id}}MS.png"></span><span>{{pokemon.name}}</span>
+    <div class="col-md-12 seccol">
+      <div class="ca_j9 row pcolr">
+        <div class="col-md-12">
+          <div class="text-center ca_j7">
+            <span><img class="ca_j8" src="assets/images/spr/{{(pokemon.id?pokemon.id:'001')+'MS.png'}}"></span><span>{{pokemon.name}}</span>
           </div>
           <div class="ca_j13">
             <div class="ca_j12">
@@ -22,64 +22,87 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="">
-              <img class="ca_i1" src="assets/images/img/{{pokemon.imgN}}">
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="">
+            <img class="ca_i1 swingimage" src="assets/images/img/{{pokemon.imgN?pokemon.imgN:'001Bulbasaur.png'}}">
           </div>
-          <div class="col-md-6">
-            <ul class="ca_j17">
-              <li *ngFor="let baseVal of pokemon.base">
-                <div class="ca_j6 pcolr seccol2">
-                  <div class="ca_j1 ca_j2"><span class="ca_j5">{{baseVal.n}}</span></div>
-                  <div class="ca_j1 ca_j3">
-                    <div class="progress ca_j4 pbcolr seccol2_1">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="baseVal.v + '%'">
-                        <span class="sr-only">{{baseVal.v}}% Complete</span>
-                      </div>
+        </div>
+        <div class="col-md-6">
+          <ul class="ca_j17">
+            <li *ngFor="let baseVal of pokemon.base">
+              <div class="ca_j6 pcolr seccol2">
+                <div class="ca_j1 ca_j2"><span class="ca_j5">{{baseVal.n}}</span></div>
+                <div class="ca_j1 ca_j3">
+                  <div class="progress ca_j4 pbcolr seccol2_1">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [style.width]="baseVal.v + '%'">
+                      <span class="sr-only">{{baseVal.v}}% Complete</span>
                     </div>
                   </div>
                 </div>
-              </li>
-            </ul>
-          </div>
+              </div>
+            </li>
+          </ul>
         </div>
-
-        <div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-2"><div class="ca_j15 ca_j22">Level Up Skills</div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group ca_j11 ca_j21" role="group" [popover]="myPopover" [popoverOnHover]="true" *ngFor="let skill of pokemonLevelUpSkills" on-mouseover="skillOver(skill)">{{skill.ename}}</div>
+                <popover-content #myPopover placement="auto top" [closeOnClickOutside]="true">
+                  <div>
+                    <table class="skilpoptbl">
+                      <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Accuracy</th>
+                        <th>PP</th>
+                        <th>Power</th>
+                      </tr>
+                      <tr>
+                        <td>{{skillDetail.ename}}</td>
+                        <td>{{skillDetail.id}}</td>
+                        <td>{{skillDetail.type}}</td>
+                        <td>{{skillDetail.accuracy}}</td>
+                        <td>{{skillDetail.pp}}</td>
+                        <td>{{skillDetail.power}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </popover-content>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="container">
-  <div class="row ca_j18">
-    <div class="col-md-6">
-      <input *ngIf="config.filtering" placeholder="Search by Name"
-             [ngTableFiltering]="config.filtering"
-             class="form-control"
-             (tableChanged)="onChangeTable(config)"/>
-    </div>
-  </div>
   <div class="row">
-    <div class="col-sm-12 ca_j19">
-      <ng-table [config]="config"
-                (tableChanged)="onChangeTable(config)"
-                (cellClicked)="onCellClick($event)"
-                [rows]="rows" [columns]="columns">
-      </ng-table>
-      <pagination *ngIf="config.paging"
-                  class="pagination-sm"
-                  [(ngModel)]="page"
-                  [totalItems]="length"
-                  [itemsPerPage]="itemsPerPage"
-                  [maxSize]="maxSize"
-                  [boundaryLinks]="true"
-                  [rotate]="false"
-                  (pageChanged)="onChangeTable(config, $event)"
-                  (numPages)="numPages = $event">
-      </pagination>
-      <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
+    <div class="col-md-12 ca_j19">
+      <div class="row ca_j18">
+        <div class="col-md-6">
+          <input *ngIf="config.filtering" placeholder="Search by Name"
+                 [ngTableFiltering]="config.filtering"
+                 class="form-control"
+                 (tableChanged)="onChangeTable(config)"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <ng-table [config]="config"
+                    (tableChanged)="onChangeTable(config)"
+                    (cellClicked)="onCellClick($event)"
+                    [rows]="rows" [columns]="columns">
+          </ng-table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

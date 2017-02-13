@@ -8,3 +8,11 @@ body{
   font-family: 'Mitr', sans-serif;
   font-size: 12px;
 }
+.ca_j19 table td img{
+  display: block;
+  margin: 0 auto;
+}
+
+.ci-img-header {
+  width: 70px;
+}

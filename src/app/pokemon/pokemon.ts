@@ -6,4 +6,6 @@ export class Pokemon {
   base:Array<Object>;
   imgN:string;
   types:string[];
+  typesConcat:string;
+  skills:Object;
 }

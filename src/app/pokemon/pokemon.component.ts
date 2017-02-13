@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-
 import {Pokemon} from './pokemon';
+import {PokemonSkill} from './pokemon-skill';
 import {PokedexDataService} from './pokedex-data.service';
 
 @Component({
@@ -11,14 +11,18 @@ import {PokedexDataService} from './pokedex-data.service';
   styleUrls: ['./pokemon.component.css']
 })
 export class PokemonComponent implements OnInit {
-  pokemon: Pokemon=new Pokemon;
   private pokemons: Pokemon[];
+  private skills: PokemonSkill[];
+  pokemon: Pokemon = new Pokemon;
+  pokemonLevelUpSkills: PokemonSkill[] = [];
+  skillDetail: PokemonSkill = new PokemonSkill;
   error: any;
   public rows: Array<any> = [];
   public columns: Array<any> = [
     {title: 'Name', name: 'name', sort: '', filtering: {filterString: '', placeholder: 'Filter by Name'}},
-    {title: 'ID.', name: 'id', sort: '',filtering: {filterString: '', placeholder: 'Filter by ID'}},
-    {title: 'Theme', name: 'thm', sort: '',className: ['ci-img-header']}
+    {title: 'ID.', name: 'id', sort: '', filtering: {filterString: '', placeholder: 'Filter by ID'}},
+    {title: 'Type.', name: 'typesConcat', sort: '', filtering: {filterString: '', placeholder: 'Filter by Type'}},
+    {title: 'Theme', name: 'thm', sort: '', className: ['ci-img-header']}
   ];
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -33,8 +37,11 @@ export class PokemonComponent implements OnInit {
     className: ['table-striped', 'table-bordered']
   };
 
-
   constructor(private router: Router, private pokedexDataService: PokedexDataService) {
+  }
+
+  ngOnInit(): void {
+    this.getPokemons();
   }
 
   getPokemons(): void {
@@ -45,13 +52,29 @@ export class PokemonComponent implements OnInit {
         this.pokemons = pokemons;
         this.length = pokemons.length;
         this.onChangeTable(this.config);
-        this.pokemon=pokemons[0];
+        this.pokemon = pokemons[0];
+        this.getSkills();
       })
       .catch(error => this.error = error);
   }
 
-  ngOnInit(): void {
-    this.getPokemons();
+  getSkills(): void {
+    this.pokedexDataService
+      .getSkills()
+      .then((skills) => {
+        console.log(skills.length); // 456
+        this.skills = skills;
+        this.pokemonLevelUpSkills = [];
+        let levelUpSkillArr = ('level_up' in this.pokemon.skills) ? this.pokemon.skills['level_up'] : false;
+        if (levelUpSkillArr) {
+          for (let i in levelUpSkillArr) {
+            let skillIdx = levelUpSkillArr[i];
+            let skillObj = this.skills[skillIdx];
+            this.pokemonLevelUpSkills.push(skillObj);
+          }
+        }
+      })
+      .catch(error => this.error = error);
   }
 
   public changePage(page: any, pokemons: Array<any> = this.pokemons): Array<any> {
@@ -142,12 +165,18 @@ export class PokemonComponent implements OnInit {
       this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
       this.length = sortedData.length;
     }
-    catch(err) {
+    catch (err) {
       console.dir(err);
     }
   }
-  public onCellClick(e){
+
+  public onCellClick(e) {
     console.dir(e);
-    this.pokemon=e.row;
+    this.pokemon = e.row;
+  }
+
+  //called on hover skill item
+  public skillOver(s) {
+    this.skillDetail = s;
   }
 }
