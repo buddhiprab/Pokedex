@@ -26,7 +26,7 @@ export class PokedexDataService {
           p.flatName = o.flatName;
           p.imgN = (o.id + (o.flatName ? o.flatName : o.ename) + '.png');
           // p.thm=o.id+(o.flatName?o.flatName:o.ename)+'.png';
-          p.thm = '<img src="assets/images/thm/' + (o.id + (o.flatName ? o.flatName : o.ename) + '.png') + '" alt="Smiley face" height="42" width="42">';
+          p.thm = '<img src="assets/images/thm/' + (o.id + (o.flatName ? o.flatName : o.ename) + '.png') + '" height="42" width="42">';
           let bArr = [];
           bArr.push({n: "Attack", v: o.base.Attack});
           bArr.push({n: "Defense", v: o.base.Defense});
@@ -39,7 +39,7 @@ export class PokedexDataService {
           p.typesConcat = o.type.join();
           p.skills = o.skills;
           pokemons.push(p);
-          
+          console.log(p.thm);
         });
         return pokemons;
       })
