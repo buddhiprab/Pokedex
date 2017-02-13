@@ -1,31 +1,24 @@
-# Pokedex
+# Pokedex - AngularJS developer assignment
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
+[![Angular](https://angular.io/resources/images/logos/standard/logo-nav.png)](httpshttps://angular.io/)
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+running environment [Node.js](https://nodejs.org/) >= v6.9.x, [npm](https://www.npmjs.com/) >=3.10.x
 
-## Build
+clone the repo
+```sh
+$ git clone --depth 1 https://github.com/buddhiprab/Pokedex.git
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+Install the dependencies and devDependencies and start the server.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```sh
+$ cd Pokedex
+$ npm install -d
+$ npm start
+```
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to GitHub Pages
-
-Run `ng github-pages:deploy` to deploy to GitHub Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[![Angular](https://angular.io/resources/images/logos/standard/logo-nav.png)](httpshttps://angular.io/)
